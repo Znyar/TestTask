@@ -1,14 +1,16 @@
 package service;
 
+import model.Account;
+
 import java.math.BigDecimal;
 
 public interface AccountService {
 
-    void depositRequest(BigDecimal amount);
+    void depositRequest(Account account, BigDecimal amount);
 
-    void withdrawRequest(BigDecimal amount);
+    void withdrawRequest(Account account, BigDecimal amount);
 
-    void getBalance();
+    void getBalance(Account account);
 
-    void getTransactions();
+    void getTransactions(Account account);
 }

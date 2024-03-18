@@ -1,5 +1,6 @@
 package service;
 
+import model.Account;
 import repository.AccountRepository;
 
 import java.math.BigDecimal;
@@ -13,9 +14,9 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
-    public void depositRequest(BigDecimal amount) {
+    public void depositRequest(Account account, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) > 0) {
-            accountRepository.updateBalance(amount);
+            accountRepository.updateBalance(account, amount);
             System.out.println("Счет успешно пополнен на " + amount + " руб.\n");
         } else {
             System.out.println("Сумма должна быть больше 0\n");
@@ -23,13 +24,13 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
-    public void withdrawRequest(BigDecimal amount) {
+    public void withdrawRequest(Account account, BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) > 0) {
-            if (amount.compareTo(accountRepository.getBalance()) <= 0) {
-                accountRepository.updateBalance(amount.negate());
+            if (amount.compareTo(accountRepository.getBalance(account)) <= 0) {
+                accountRepository.updateBalance(account, amount.negate());
                 System.out.println("Со счета снято " + amount + " руб.\n");
             } else {
-                System.out.println("Недостаточно средств на счету (" + accountRepository.getBalance() + " руб.)\n");
+                System.out.println("Недостаточно средств на счету (" + accountRepository.getBalance(account) + " руб.)\n");
             }
         } else {
             System.out.println("Сумма должна быть больше 0\n");
@@ -37,15 +38,15 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
-    public void getBalance() {
-        System.out.println("Баланс на счете: " + accountRepository.getBalance() + " руб.\n");
+    public void getBalance(Account account) {
+        System.out.println("Баланс на счете: " + accountRepository.getBalance(account) + " руб.\n");
     }
 
     @Override
-    public void getTransactions() {
+    public void getTransactions(Account account) {
         System.out.println("История транзакций:");
-        accountRepository.getTransactions().forEach(System.out::println);
-        if (accountRepository.getTransactions().isEmpty()) {
+        accountRepository.getTransactions(account).forEach(System.out::println);
+        if (accountRepository.getTransactions(account).isEmpty()) {
             System.out.println("История транзакций пуста");
         }
         System.out.println();

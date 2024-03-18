@@ -8,21 +8,19 @@ import java.util.List;
 
 public class InMemoryAccountRepository implements AccountRepository {
 
-    private final Account account = new Account();
-
     @Override
-    public void updateBalance(BigDecimal amount) {
+    public void updateBalance(Account account, BigDecimal amount) {
         account.setBalance(account.getBalance().add(amount));
         account.getTransactions().add(new Transaction(amount));
     }
 
     @Override
-    public BigDecimal getBalance() {
+    public BigDecimal getBalance(Account account) {
         return account.getBalance();
     }
 
     @Override
-    public List<Transaction> getTransactions() {
+    public List<Transaction> getTransactions(Account account) {
         return account.getTransactions();
     }
 

@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Account {
+public abstract class Account {
 
-    private BigDecimal balance = BigDecimal.ZERO;
-    private final List<Transaction> transactions = new LinkedList<>();
+    public BigDecimal balance = BigDecimal.ZERO;
+    public final List<Transaction> transactions = new LinkedList<>();
 
     public BigDecimal getBalance() {
         return balance;
