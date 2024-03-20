@@ -45,9 +45,10 @@ public class DefaultAccountService implements AccountService {
     @Override
     public void getTransactions(Account account) {
         System.out.println("История транзакций:");
-        accountRepository.getTransactions(account).forEach(System.out::println);
         if (accountRepository.getTransactions(account).isEmpty()) {
             System.out.println("История транзакций пуста");
+        } else {
+            accountRepository.getTransactions(account).forEach(System.out::println);
         }
         System.out.println();
     }
